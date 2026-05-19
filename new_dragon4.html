@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -212,6 +212,11 @@ document.querySelector('.game-container h2').style.fontFamily = '黑体, SimHei,
 document.querySelector('.top-text h3').style.fontFamily = '黑体, SimHei, sans-serif';
 document.querySelector('.top-text h4').style.fontFamily = '黑体, SimHei, sans-serif';
         document.querySelector('.btn-reset').style.fontFamily = CONFIG.fontFamily;
+
+        // ===== 音效预加载（预先加载到缓存，播放无延迟） =====
+        var audioZoom = new Audio("./dd.mp3");
+        audioZoom.preload = "auto";
+        function playSound(a) { try { a.cloneNode().play(); } catch(e) {} }
 
         // ==================== 资源加载 ====================
         const loadedImages = {
@@ -769,6 +774,8 @@ function completeWallDisappear(breaker) {
             if (msg) msg.classList.add('show');
             if (lm) lm.classList.add('show');
             if (rm) rm.classList.add('show');
+            // 播放音效
+            playSound(audioZoom);
             sw.classList.add('zoom-appear');
             setTimeout(() => {
                 sw.style.animation = 'none';
